@@ -1,8 +1,17 @@
 import React from "react";
 import "./App.css";
+import Layout from "./layout/Layout";
+import AppRoutes from "./routes/Routes";
 
-export const App = () => {
-  return <div className="App">
-    App
-  </div>;
+interface IAppProps {}
+
+const App: React.FunctionComponent<IAppProps> = (props) => {
+  return (
+    <div id="App">
+      <Layout>
+        <AppRoutes />
+      </Layout>
+    </div>
+  );
 };
+export default App;
