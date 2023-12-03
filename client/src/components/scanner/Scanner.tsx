@@ -4,9 +4,26 @@ import QrReader from "react-qr-scanner";
 
 interface IScannerProps {}
 
+interface IScannerResult {
+  canvas: HTMLCanvasElement;
+  format: number;
+  numBits: number;
+  rawBytes: Uint8Array;
+  resultMetadata: Map<any, any>;
+  resultPoints: Array<{
+    x: number;
+    y: number;
+    estimatedModuleSize: number;
+    count: number;
+  }>;
+  text: string;
+  timestamp: number;
+}
+
 const Scanner: React.FunctionComponent<IScannerProps> = (props) => {
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState<IScannerResult | null>(null);
   const [scannerOn, setScannerOn] = useState(true);
+  const [cameraAccess, setCameraAccess] = useState(false);
 
   const handleScan = useCallback((data: any) => {
     if (data) {
@@ -20,10 +37,27 @@ const Scanner: React.FunctionComponent<IScannerProps> = (props) => {
     console.error(err);
   }, []);
 
+  const requestCameraPermission = () => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then(() => {
+        // Доступ к камере получен
+        setCameraAccess(true);
+        console.log("Доступ к камере получен");
+      })
+      .catch((err) => {
+        // Обработка ошибок при доступе к камере
+        console.error("Ошибка доступа к камере: ", err);
+      });
+  };
+
   return (
     <div>
       <h1>Scanner</h1>
-      {scannerOn ? (
+      <button onClick={requestCameraPermission}>
+        Разрешить доступ к камере
+      </button>
+      {scannerOn && cameraAccess ? (
         <QrReader
           delay={300}
           onError={handleError}
@@ -33,6 +67,7 @@ const Scanner: React.FunctionComponent<IScannerProps> = (props) => {
       ) : (
         <></>
       )}
+      {result ? result.text : ""}
     </div>
   );
 };
