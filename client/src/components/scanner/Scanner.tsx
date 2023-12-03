@@ -41,12 +41,10 @@ const Scanner: React.FunctionComponent<IScannerProps> = (props) => {
     navigator.mediaDevices
       .getUserMedia({ video: true })
       .then(() => {
-        // Доступ к камере получен
         setCameraAccess(true);
         console.log("Доступ к камере получен");
       })
       .catch((err) => {
-        // Обработка ошибок при доступе к камере
         console.error("Ошибка доступа к камере: ", err);
       });
   };
