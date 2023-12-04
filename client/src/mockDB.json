@@ -1,0 +1,34 @@
+{
+    "users": [
+      {
+        "id": "b3153a9a-fc4b-4d98-bb88-b19831e4c912",
+        "scansCount": 0,
+        "confirmedApplications": 0
+      },
+      {
+        "id": "5af92815-2892-406c-9080-54038637aa59",
+        "approvedApplications": 0,
+        "reviewedApplications": 0
+      }
+    ],
+    "applications": [
+      {
+        "id": "cb5283e9-0829-4d79-a8f4-31578383c9d2",
+        "userId": "b3153a9a-fc4b-4d98-bb88-b19831e4c912",
+        "data": {
+          "name": "Nikita",
+          "secondName": "Ohrimenko",
+          "lastName": "Igorevich",
+          "age": 22,
+          "title": "Laptop Lenovo AC-31351",
+          "category": "electronic",
+          "amount": 1,
+          "reason": "For bar interior",
+          "price": "499.99"
+        },
+        "isProcessed": false,
+        "isViewd": false
+      }
+    ]
+  }
+  
