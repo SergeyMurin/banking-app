@@ -1,0 +1,66 @@
+{
+  "users": [
+    {
+      "id": "b3153a9a-fc4b-4d98-bb88-b19831e4c912",
+      "name": "Nastya",
+      "secondName": "Popova",
+      "lastName": "Aleksandrovna",
+      "username": "nastyaPopova21",
+      "password": "123",
+      "isManager": false
+    },
+    {
+      "id": "5af92815-2892-406c-9080-54038637aa59",
+      "name": "Fedor",
+      "secondName": "Ivanov",
+      "lastName": "Maksimovich",
+      "username": "ivanovFedor21",
+      "password": "1234",
+      "isManager": true
+    }
+  ],
+  "orders": [
+    {
+      "id": "1e94c8b8-35e6-4d24-bb2b-0afceb178940",
+      "date": "2023-11-28T9:50:00",
+      "client": [
+        {
+          "name": "Pavel",
+          "secondName": "Urusov",
+          "lastName": "Ivanovich",
+          "age": 23
+        }
+      ],
+      "product": [
+        {
+          "title": "TV Samsung Smart TV",
+          "category": "electronic",
+          "amount": 2,
+          "reason": "For bar interior",
+          "price": "343.3"
+        }
+      ]
+    },
+    {
+      "id": "51f2c07d-23a7-4665-9f0b-b919a169e7b1",
+      "date": "2023-12-04T14:30:00",
+      "client": [
+        {
+          "name": "Sergey",
+          "secondName": "Murin",
+          "lastName": "Aleksandrovich",
+          "age": 21
+        }
+      ],
+      "product": [
+        {
+          "title": "",
+          "category": "book",
+          "amount": 1,
+          "reason": "For your own use",
+          "price": "44.74"
+        }
+      ]
+    }
+  ]
+}
