@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useCallback, useState } from "react";
 import QrReader from "react-qr-scanner";
+import { useNavigate } from "react-router-dom";
+import { routesConfig } from "../../config/routesConfig";
 
 interface IScannerProps {}
 
@@ -25,11 +27,14 @@ const Scanner: React.FunctionComponent<IScannerProps> = (props) => {
   const [scannerOn, setScannerOn] = useState(true);
   const [cameraAccess, setCameraAccess] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleScan = useCallback((data: any) => {
     if (data) {
       setResult(data);
       console.log(data);
       setScannerOn(false);
+      navigate(routesConfig.path.form);
     }
   }, []);
 
