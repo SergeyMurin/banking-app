@@ -64,7 +64,7 @@ const Photos: React.FunctionComponent<IPhotosProps> = (props) => {
       <div>
         {images.map((image, index) => (
           <div key={index}>
-            <img src={image} alt={`Image ${index}`} />
+            <img src={image} alt={`${index}`} />
             <button onClick={() => removeImage(index)}>Remove</button>
           </div>
         ))}

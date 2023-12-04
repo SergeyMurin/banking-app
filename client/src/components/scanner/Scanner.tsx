@@ -36,7 +36,7 @@ const Scanner: React.FunctionComponent<IScannerProps> = (props) => {
       setScannerOn(false);
       navigate(routesConfig.path.form);
     }
-  }, []);
+  }, [navigate]);
 
   const handleError = useCallback((err: any) => {
     console.error(err);

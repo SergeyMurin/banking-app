@@ -1,20 +1,43 @@
+// Login.tsx
+
 import * as React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { appConfig } from "../../config/appConfig";
+import { useActions } from "../../hooks/useActions";
 import { routesConfig } from "../../config/routesConfig";
+import { useNavigate } from "react-router-dom";
 
 interface ILoginProps {}
 
 const Login: React.FunctionComponent<ILoginProps> = (props) => {
   const [usernameField, setUsernameField] = useState("");
   const [passwordField, setPasswordField] = useState("");
+  const [errorField, setErrorField] = useState("");
+  const { setAuth } = useActions();
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Logging in with", usernameField, passwordField);
-    //if ok
-    navigate(routesConfig.path.scanner);
+
+    const response = await axios
+      .get(`${appConfig.API}/users`, { params: { username: usernameField } })
+      .catch((error) => {
+        debugger;
+      });
+
+    debugger;
+    if (!response?.data.length) {
+      setErrorField("Unknown user");
+      return;
+    }
+    const user = response.data[0];
+    if (!(user.password === passwordField)) {
+      setErrorField("Wrong password");
+      return;
+    }
+    setAuth(true);
+    navigate(routesConfig.path.scanner)
   };
 
   return (
@@ -35,6 +58,7 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
           value={passwordField}
           onChange={(e) => setPasswordField(e.target.value)}
         />
+        <p className="error">{errorField}</p>
         <button type="submit">Login</button>
       </form>
     </div>
