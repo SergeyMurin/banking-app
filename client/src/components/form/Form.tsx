@@ -21,7 +21,8 @@ const Form: React.FunctionComponent<IFormProps> = (props) => {
     navigate(routesConfig.path.scanner);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     navigate(routesConfig.path.photos);
     // fetch('/api/updateProduct', {
     //   method: 'POST',
