@@ -5,6 +5,7 @@ import {
   INCREASE_CONFIRMED_APPLICATIONS,
   INCREASE_REVIEWED_APPLICATIONS,
   INCREASE_SCANS_COUNT,
+  REMOVE_USER,
   SET_APPLICATION_IS_PROCESSED,
   SET_APPLICATION_IS_VIEWED,
   SET_IS_AUTH,
@@ -17,7 +18,7 @@ export interface IUser {
   secondName: string;
   lastName: string;
   username: string;
-  isManager: false;
+  isManager: boolean;
   scansCount: number;
   confirmedApplications: number;
   approvedapplications: number;
@@ -73,6 +74,10 @@ export interface IActionSetApplicationIsViewed {
   payload: boolean;
 }
 
+export interface IActionRemoveUser {
+  type: typeof REMOVE_USER;
+}
+
 export type ActionTypes =
   | IActionSetUser
   | IActionSetIsAuth
@@ -82,5 +87,5 @@ export type ActionTypes =
   | IActionIncreaseScansCount
   | IActionIncreaseReviewedApplications
   | IActionSetApplicationIsProcessed
-  | IActionSetApplicationIsViewed;
-
+  | IActionSetApplicationIsViewed
+  | IActionRemoveUser;

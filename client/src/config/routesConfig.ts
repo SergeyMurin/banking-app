@@ -1,10 +1,10 @@
 export const routesConfig = {
   path: {
-    login: "/",
+    login: "/login",
     scanner: "/scanner",
     form: "/form",
     photos: "/photos",
-    home: "/home",
+    home: "/",
     notFound: "*",
     manager: "/manager",
   },

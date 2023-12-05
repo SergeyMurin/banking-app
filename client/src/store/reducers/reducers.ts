@@ -1,5 +1,10 @@
 import { ActionTypes, IApplication, IUser } from "../actions/actions";
-import { SET_IS_AUTH } from "../actions/actionsConstants";
+import {
+  SET_IS_AUTH,
+  SET_USER,
+  INCREASE_SCANS_COUNT,
+  REMOVE_USER,
+} from "../actions/actionsConstants";
 
 type IState = {
   isAuth: boolean;
@@ -30,6 +35,15 @@ export const appReducer = (
   switch (action.type) {
     case SET_IS_AUTH:
       return { ...state, isAuth: action.payload };
+    case SET_USER:
+      return { ...state, user: action.payload };
+    case INCREASE_SCANS_COUNT:
+      return {
+        ...state,
+        user: { ...state.user, scansCount: state.user.scansCount + 1 },
+      };
+    case REMOVE_USER:
+      return { ...state, user: initialState.user };
     default:
       return state;
   }
