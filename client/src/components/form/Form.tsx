@@ -1,66 +1,122 @@
 import * as React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { routesConfig } from "../../config/routesConfig";
+import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
 
 interface IFormProps {}
 
 const Form: React.FunctionComponent<IFormProps> = (props) => {
-  const [formData, setFormData] = useState({
-    productName: "",
-    productDescription: "",
-  });
-  const navigate = useNavigate();
+  const { id } = useParams();
+  const [formData, setFormData] = useState<any>({});
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  useEffect(() => {
+    // Здесь обычно будет запрос к API для получения данных по id
+    // Временно используем статический объект данных
+    const mockData = {
+      id: "1e94c8b8-35e6-4d24-bb2b-0afceb178940",
+      date: "2023-11-28T9:50:00",
+      client: {
+        name: "Pavel",
+        secondName: "Urusov",
+        lastName: "Ivanovich",
+        age: 23,
+      },
+
+      product: {
+        title: "TV Samsung Smart TV",
+        category: "electronic",
+        amount: 2,
+        reason: "For bar interior",
+        price: "343.3",
+      },
+    };
+    setFormData(mockData);
+  }, []);
+
+  const renderFields = (data: any) => {
+    return Object.keys(data).map((key) => {
+      if (typeof data[key] === "object") {
+        return (
+          <Grid key={key} container spacing={2}>
+            <Typography variant="h6">{key}</Typography>
+            {renderFieldsForObject(key, data[key])}
+          </Grid>
+        );
+      } else {
+        return (
+          <Grid key={key} item xs={12} md={6}>
+            <TextField
+              fullWidth
+              label={key}
+              variant="outlined"
+              value={data[key]}
+              disabled={key === "client"}
+              onChange={(e) => handleInputChange(e, key)}
+            />
+          </Grid>
+        );
+      }
+    });
   };
 
-  const handleCancel = () => {
-    navigate(routesConfig.path.scanner);
+  const renderFieldsForObject = (parentKey: string, obj: any) => {
+    return Object.keys(obj).map((key) => (
+      <Grid key={key} item xs={12} md={6}>
+        <TextField
+          fullWidth
+          label={key}
+          variant="outlined"
+          value={obj[key]}
+          disabled={parentKey === "client"}
+          onChange={(e) => handleInputChangeForObject(e, parentKey, key)}
+        />
+      </Grid>
+    ));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    navigate(routesConfig.path.photos);
-    // fetch('/api/updateProduct', {
-    //   method: 'POST',
-    //   body: JSON.stringify(formData),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   // Обработка ответа от сервера или локальной обработка данных
-    // })
-    // .catch(error => {
-    //   // Обработка ошибок при отправке данных на сервер
-    // });
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    key: string
+  ) => {
+    const value = e.target.value;
+    setFormData((prevData: any) => ({
+      ...prevData,
+      [key]: value,
+    }));
+  };
+
+  const handleInputChangeForObject = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    parentKey: string,
+    key: string
+  ) => {
+    const value = e.target.value;
+    setFormData((prevData: any) => ({
+      ...prevData,
+      [parentKey]: {
+        ...prevData[parentKey],
+        [key]: value,
+      },
+    }));
   };
 
   return (
-    <div>
-      <h1>Edit Form</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Product Name:
-          <input
-            type="text"
-            name="productName"
-            value={formData.productName}
-            onChange={handleInputChange}
-          />
-        </label>
-        {/* Добавьте остальные поля для редактирования информации о товаре */}
-        <button type="button" onClick={handleCancel}>
-          Отмена
-        </button>
-        <button type="submit">Подтвердить</button>
+    <Box maxWidth={600} m="auto" p={3} component={Paper}>
+      <Typography variant="h4" align="center" gutterBottom>
+        Edit Form {id}
+      </Typography>
+      <form>
+        <Grid container spacing={3}>
+          {renderFields(formData)}
+        </Grid>
+        <Box mt={3} display="flex" justifyContent="center">
+          <Button type="submit" variant="contained" color="primary">
+            Submit
+          </Button>
+        </Box>
       </form>
-    </div>
+    </Box>
   );
 };
-
 export default Form;

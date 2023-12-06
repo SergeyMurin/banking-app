@@ -29,14 +29,19 @@ const Scanner: React.FunctionComponent<IScannerProps> = (props) => {
 
   const navigate = useNavigate();
 
+  React.useEffect(() => {
+    if (result?.text) {
+      navigate(`${routesConfig.path.form}/${result.text}`);
+    }
+  }, [result]);
+
   const handleScan = useCallback((data: any) => {
     if (data) {
       setResult(data);
       console.log(data);
       setScannerOn(false);
-      navigate(routesConfig.path.form);
     }
-  }, [navigate]);
+  }, []);
 
   const handleError = useCallback((err: any) => {
     console.error(err);

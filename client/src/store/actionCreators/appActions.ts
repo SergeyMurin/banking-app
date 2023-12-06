@@ -59,14 +59,6 @@ export const setUserAsync = (
   };
 };
 
-export const increaseScansCount = () => {
-  return (dispatch: Dispatch<ActionTypes>, getState: () => any) => {
-    const { user } = getState().appReducer;
-    const updatedUser = { ...user, scansCount: user.scansCount + 1 };
-    dispatch({ type: SET_USER, payload: updatedUser });
-  };
-};
-
 export const removeUser = () => {
   return (dispatch: Dispatch<ActionTypes>) => {
     dispatch({ type: REMOVE_USER });

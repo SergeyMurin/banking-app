@@ -3,7 +3,7 @@ export const routesConfig = {
     login: "/login",
     scanner: "/scanner",
     form: "/form",
-    photos: "/photos",
+    photos: "/form/photos",
     home: "/",
     notFound: "*",
     manager: "/manager",

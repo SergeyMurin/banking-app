@@ -24,8 +24,14 @@ const AppRoutes: React.FunctionComponent<IAppRoutesProps> = (props) => {
         <>
           <Route path={routesConfig.path.home} element={<HomePage />} />
           <Route path={routesConfig.path.scanner} element={<ScannerPage />} />
-          <Route path={routesConfig.path.form} element={<FormPage />} />
-          <Route path={routesConfig.path.photos} element={<PhotosPage />} />
+          <Route
+            path={routesConfig.path.form + "/:id"}
+            element={<FormPage />}
+          />
+          <Route
+            path={routesConfig.path.photos + "/:id"}
+            element={<PhotosPage />}
+          />
         </>
       )}
       {isAuth && user.isManager && (

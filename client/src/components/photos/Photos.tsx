@@ -1,11 +1,12 @@
 import * as React from "react";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { routesConfig } from "../../config/routesConfig";
 
 interface IPhotosProps {}
 
 const Photos: React.FunctionComponent<IPhotosProps> = (props) => {
+  const { id } = useParams();
   const [images, setImages] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ const Photos: React.FunctionComponent<IPhotosProps> = (props) => {
 
   return (
     <div>
-      <h1>Photo Gallery</h1>
+      <h1>Photo Gallery {id}</h1>
       <input
         ref={inputRef}
         type="file"
